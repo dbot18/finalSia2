@@ -1,0 +1,23 @@
+CREATE DATABASE event_emergency_db;
+
+USE event_emergency_db;
+
+CREATE TABLE events (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    location VARCHAR(255) NOT NULL,
+    date DATETIME NOT NULL,
+    attendees INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE emergencies (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    location VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    event_id INT NULL,
+    media VARCHAR(255) NULL,
+    status ENUM('pending', 'in_progress', 'resolved') DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE SET NULL
+);
